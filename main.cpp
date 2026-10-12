@@ -5,8 +5,7 @@
 int main() {
     SYSTEM_INFO siSysInfo;
     GetSystemInfo(&siSysInfo);
-    std::cout << siSysInfo.dwProcessorType << '\n';
-    std::cout << siSysInfo.dwNumberOfProcessors;
+    std::cout << siSysInfo.dwProcessorType;
 
     
     return 0;
