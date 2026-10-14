@@ -1,4 +1,25 @@
 # nostos
-A framework:
+Some help to compile the pogramm:
 ---
-you can enter https://staatsrat.me/nostos to create a folder cales name
+Compile:
+```
+g++ main.cpp -o nostos -lcurl
+```
+Run:
+```
+./nostos
+```
+Together:
+```
+g++ main.cpp -o nostos -lcurl && ./nostos
+```
+To make a background process:
+```
+g++ main.cpp -o nostos -lcurl && ./nostos &
+```
+Killing it:
+```
+kill -9 <process id>
+```
+---
+
