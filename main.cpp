@@ -28,7 +28,14 @@ int main(void){
 	if(command == readBuffer){
 		;
 	}else{
-		system(readBuffer.c_str());
+		std::string stopnostos = "stop_nostos";
+		int stop = readBuffer.compare(stopnostos);
+		if(stop == 1){
+			std::cout << "BYE" << "\n";
+			std::exit(0);
+		}else{
+			system(readBuffer.c_str());
+		}
 	}
 	command = readBuffer;
 	sleep(10);
