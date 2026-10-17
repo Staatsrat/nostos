@@ -1,4 +1,5 @@
 # nostos
+![Alt Text](butterfly.png)   
 Some help to compile the pogramm:
 ---
 Compile:
