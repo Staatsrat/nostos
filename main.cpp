@@ -1,44 +1,47 @@
 #include <iostream>
-#include <string>
-#include <curl/curl.h>
-#include <unistd.h>
+#include <httplib.h>
+#include <nlohmann/json.hpp>
 
-static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp)
-{
-    ((std::string*)userp)->append((char*)contents, size * nmemb);
-    return size * nmemb;
+int post(char* base_url_m) {
+	const std::string baseURL = base_url_m;
+	nlohmann::json newTodo = {
+    		{"username", "user"},
+   		{"user_id", 3434},
+	};
+	httplib::Client client(baseURL.c_str());
+	auto res = client.Post("/create_user/", newTodo.dump(), "application/json");
+	if (res && res->status == 201) {
+    		std::cout << "New todo added successfully!" << std::endl;
+    		std::cout << res->body << std::endl;
+	} else {
+ 	        std::cerr << "Failed to add a new todo" << std::endl;
+    		if (res) {
+        		std::cerr << "Status Code: " << res->status << std::endl;
+        		std::cerr << "Error Details: " << res->body << std::endl;
+   		 }
+	}
+	return 0;
 }
 
-int main(void){
-	std::string command;
-	int set_sleep = 10;
-	while(true){
-		CURL *curl;
-		CURLcode res;
-		std::string readBuffer;
+int get(char* base_url_m){
+	const char* base_url = base_url_m;
+	httplib::Client client(base_url);
+	auto res = client.Get("/users");
 
-		curl = curl_easy_init();
-		if(curl) {
-			curl_easy_setopt(curl, CURLOPT_URL, "https://example.com");
-    			curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
-			curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
-			res = curl_easy_perform(curl);
-    			curl_easy_cleanup(curl);
-  		}
-	if(command == readBuffer){
-		;
-	}else{
-		std::string stopnostos = "stop_nostos";
-		int stop = readBuffer.compare(stopnostos);
-		if(stop == 1){
-			std::cout << "BYE" << "\n";
-			std::exit(0);
-		}else{
-			system(readBuffer.c_str());
-		}
+	if (res) {
+  	} else {
+    		return 1;
 	}
-	command = readBuffer;
-	sleep(10);
+	if (res->status == 200) {
+    		auto todos = nlohmann::json::parse(res->body);
+    		for (const auto& todo : todos) {
+        		std::cout << "User: " << todo["username"] << ", UserID: " << todo["user_id"] << std::endl;
+    		}
 	}
-  	return 0;
+	return 0;
 }
+
+int main(){
+	const char* base_url_m = "127.0.0.1:8000";
+}
+
