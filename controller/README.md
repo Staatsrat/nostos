@@ -1,5 +1,4 @@
 ## Backend 
----
 We will use FastAPI for the backend.
 to start it go into the /controller/nostos folder and execute the following comands
 ```
