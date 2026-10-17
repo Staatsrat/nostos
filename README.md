@@ -1,5 +1,5 @@
 # nostos
-![Alt Text](butterfly.png)   
+![Alt Text](assets/butterfly.png)   
 Some help to compile the pogramm:
 ---
 Compile:
