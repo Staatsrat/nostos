@@ -1,6 +1,7 @@
 #include <iostream>
 #include <httplib.h>
 #include <nlohmann/json.hpp>
+#include <unistd.h>
 
 int post(const char* base_url_m) {
 	const std::string baseURL = base_url_m;
@@ -38,8 +39,11 @@ int get(const char* base_url_m){
 
 int main(){
 	const char* base_url_m = "127.0.0.1:8000";
-	post(base_url_m);
-	get(base_url_m);
+	while(true){
+		post(base_url_m);
+		get(base_url_m);
+		sleep(10);
+	}
 
 }
 
