@@ -31,7 +31,7 @@ int main(){
 		std::cout << "Now: " << counter << std::endl;
 		post(base_url_m, command, counter);
 		counter += 1;
-		sleep(10);
+		sleep(1);
 	}
 
 }
